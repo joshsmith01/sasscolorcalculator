@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import './App.css';
 import colorString from 'color-string';
 import Color from 'color';
@@ -9,8 +9,8 @@ const App = () => {
     colorEnd: '#ff0000'
   });
   const [colorsHsl, setColorsHsl] = useState({
-    colorStart: {},
-    colorEnd: {}
+    colorStart: [],
+    colorEnd: []
   });
 
   const handleChange = (event) => {
@@ -23,14 +23,28 @@ const App = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    let colorStartHsl = Color(colors.colorStart);
-    let colorEndHsl = Color(colors.colorEnd);
+    let colorStartHsl = Color(colors.colorStart).hsl().array();
+    let colorEndHsl = Color(colors.colorEnd).hsl().array();
     setColorsHsl(colorsHsl => ({
       ...colorsHsl,
       colorStart: colorStartHsl,
       colorEnd: colorEndHsl
     }));
   };
+
+  useEffect(() => {
+     getColorDifferences(colorsHsl.colorStart, colorsHsl.colorEnd)
+  }, [colorsHsl]);
+
+
+  function getColorDifferences(start, end) {
+    let differences = [];
+    for (let i = 0; i < 3; i++) {
+      differences[i] = start[i] - end[i];
+    }
+    console.log(differences);
+    return ( differences );
+  }
 
 
   return (
