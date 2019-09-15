@@ -46,34 +46,31 @@ const App = () => {
     return (differences);
   }
 
-  function getColorFunction(colorString, hslDifferences, mode) {
-    // default mode: sass
-    var mode = typeof mode !== 'undefined' ? mode : "sass";
-    var colorFunction = colorString;
+  function getColorFunction(colorString, hslDifferences) {
     // H
     if (hslDifferences[0] !== 0) { // if hue changes
       var invH = hslDifferences[0] * -1;
-      var hueFunction = (mode === "sass") ? "adjust-hue" : "spin";
-      colorFunction = hueFunction + "( " + colorFunction + ", " + invH + "deg )";
+      var hueFunction = "adjust-hue";
+      colorString = hueFunction + "( " + colorString + ", " + invH + "deg )";
     }
     // S
     if (hslDifferences[1] < 0) { // if second color is more saturated
       var absS = Math.abs(hslDifferences[1]);
-      colorFunction = "saturate( " + colorFunction + ", " + absS + " )";
+      colorString = "saturate( " + colorString + ", " + absS + " )";
     } else if (hslDifferences[1] > 0) { // if second color is less saturated
-      colorFunction = "desaturate( " + colorFunction + ", " + hslDifferences[1] + " )";
+      colorString = "desaturate( " + colorString + ", " + hslDifferences[1] + " )";
     }
     // L
     if (hslDifferences[2] < 0) { // if second color is lighter
       var absL = Math.abs(hslDifferences[2]);
-      colorFunction = "lighten( " + colorFunction + ", " + absL + " )";
+      colorString = "lighten( " + colorString + ", " + absL + " )";
     } else if (hslDifferences[2] > 0) { // if second color is darker
-      colorFunction = "darken( " + colorFunction + ", " + hslDifferences[2] + " )";
+      colorString = "darken( " + colorString + ", " + hslDifferences[2] + " )";
     }
     // Logs the hslDifferences to the console in an array. -JMS
-    console.log('colorFunction: ',colorFunction);
-    setColorFunctionArray([...colorFunctionArray, colorFunction]);
-    return (colorFunction);
+    console.log('colorString: ',colorString);
+    setColorFunctionArray([...colorFunctionArray, colorString]);
+    return (colorString);
   }
 
   return (
