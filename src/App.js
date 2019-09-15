@@ -38,15 +38,20 @@ const App = () => {
   }, [colorsHsl]);
 
   var differences = [];
-  function getColorDifferences(start, end) {
+  function  getColorDifferences(start, end) {
+    if(isNaN(end[0])) {
+      return
+    }
     for (let i = 0; i < 3; i++) {
       differences[i] = start[i] - end[i];
     }
-    console.log('differences: ',differences);
     return (differences);
   }
 
   function getColorFunction(colorString, hslDifferences) {
+    if(isNaN(hslDifferences[0])) {
+      return
+    }
     // H
     if (hslDifferences[0] !== 0) { // if hue changes
       var invH = hslDifferences[0] * -1;
@@ -67,8 +72,6 @@ const App = () => {
     } else if (hslDifferences[2] > 0) { // if second color is darker
       colorString = "darken( " + colorString + ", " + hslDifferences[2] + " )";
     }
-    // Logs the hslDifferences to the console in an array. -JMS
-    console.log('colorString: ',colorString);
     setColorFunctionArray([...colorFunctionArray, colorString]);
     return (colorString);
   }
