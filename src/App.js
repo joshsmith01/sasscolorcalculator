@@ -85,9 +85,9 @@ const App = () => {
   return (
       <div className="App">
         <form onSubmit={handleSubmit}>
-          <input type="text" name="colorStart" placeholder="Base Color #dad" onChange={handleChange}/>
-          <input type="text" name="colorEnd" placeholder="Result Color #ee00ff" onChange={handleChange}/>
-          <input type="submit" value="Sassify"/>
+          <input type="text" name="colorStart" placeholder="Start #dad" onChange={handleChange}/>
+          <input type="text" name="colorEnd" placeholder="End #ee00ff" onChange={handleChange}/>
+          <button type="submit" value="Sassify">Sassify</button>
         </form>
         <div className="color-display">
           <p>Click the color to copy its value</p>
@@ -101,7 +101,7 @@ const App = () => {
 
         {colorFunctionArray.map((item, index)  => (
           <div className="color-display-history" key={index}>
-            <p>{item}</p>
+            <code>{item}</code>
             <div className="color-card color-card-start" style={{background: colorsHsl.colorStartString}}>
               Start Color {colorsHsl.colorStartString}
             </div>
