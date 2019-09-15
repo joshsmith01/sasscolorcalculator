@@ -1,5 +1,5 @@
 .App {
-  display: grid;
+  /*display: grid;*/
   grid-template-columns: 25%  auto  25%;
   grid-template-rows: 25% 100px auto;
   text-align: center;
@@ -10,13 +10,15 @@ form {
   grid-row-start: 2;
   grid-row-end: 3;
 }
-.color-display {
+.color-display, .color-display-history {
   grid-column-start: 2;
   grid-column-end: 3;
   grid-row-start: 3;
-  grid-row-end: 3;
   background: beige;
 }
+.color-display-history {
+    display: block;
+  }
 .color-card {
   height: 100px;
   width: 100px;

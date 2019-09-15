@@ -28,8 +28,14 @@ const App = () => {
     setColorsHsl(colorsHsl => ({
       ...colorsHsl,
       colorStart: colorStartHsl,
-      colorEnd: colorEndHsl
+      colorEnd: colorEndHsl,
+      colorStartString: colors.colorStart,
+      colorEndString: colors.colorEnd,
     }));
+    setColors({
+      colorStart: '#eeeeee',
+      colorEnd: '#ff0000'
+    })
   };
 
   useEffect(() => {
@@ -92,6 +98,21 @@ const App = () => {
             End Color {colors.colorEnd}
           </div>
         </div>
+
+        {colorFunctionArray.map((item, index)  => (
+          <div className="color-display-history" key={index}>
+            <p>{item}</p>
+            <div className="color-card color-card-start" style={{background: colorsHsl.colorStartString}}>
+              Start Color {colorsHsl.colorStartString}
+            </div>
+            <div className="color-card color-card-end" style={{background: colorsHsl.colorEndString}}>
+              End Color {colorsHsl.colorEndString}
+            </div>
+          </div>
+        ))}
+
+
+
       </div>
   );
 }
