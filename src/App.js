@@ -101,7 +101,7 @@ const App = () => {
           </div>
         </div>
 
-        {colorFunctionArray.map((item, index)  => (
+        {colorFunctionArray.reverse().map((item, index)  => (
           <div className="color-display-history" key={index}>
             <code>{item.colorFunction}</code>
             <div className="color-card color-card-start" style={{background: item.colors.colorStartString}}>
