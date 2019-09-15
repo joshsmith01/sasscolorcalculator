@@ -32,10 +32,7 @@ const App = () => {
       colorStartString: colors.colorStart,
       colorEndString: colors.colorEnd,
     }));
-    setColors({
-      colorStart: '#eeeeee',
-      colorEnd: '#ff0000'
-    })
+
   };
 
   useEffect(() => {
@@ -78,7 +75,12 @@ const App = () => {
     } else if (hslDifferences[2] > 0) { // if second color is darker
       colorString = "darken( " + colorString + ", " + hslDifferences[2] + " )";
     }
-    setColorFunctionArray([...colorFunctionArray, colorString]);
+    setColorFunctionArray([...colorFunctionArray, {colorFunction: colorString,colors: {
+        colorStartString: colors.colorStart,
+        colorEndString: colors.colorEnd,
+      }}]);
+
+
     return (colorString);
   }
 
@@ -101,12 +103,12 @@ const App = () => {
 
         {colorFunctionArray.map((item, index)  => (
           <div className="color-display-history" key={index}>
-            <code>{item}</code>
-            <div className="color-card color-card-start" style={{background: colorsHsl.colorStartString}}>
-              Start Color {colorsHsl.colorStartString}
+            <code>{item.colorFunction}</code>
+            <div className="color-card color-card-start" style={{background: item.colors.colorStartString}}>
+              Start Color {item.colors.colorStartString}
             </div>
-            <div className="color-card color-card-end" style={{background: colorsHsl.colorEndString}}>
-              End Color {colorsHsl.colorEndString}
+            <div className="color-card color-card-end" style={{background: item.colors.colorEndString}}>
+              End Color {item.colors.colorEndString}
             </div>
           </div>
         ))}
