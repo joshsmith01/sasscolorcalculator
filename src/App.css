@@ -4,6 +4,14 @@ body {
   color: rgba(0, 0, 0, 0.87);
   font-family: "Roboto", "Helvetica", "Arial", sans-serif;
 }
+.particles {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: -1;
+}
 #root {
   height: 100vh;
   display: flex;
@@ -32,16 +40,18 @@ form {
   display: flex;
   flex-wrap: wrap;
   padding: 1rem;
+  background: transparent;
 }
 form input[type=text] {
   flex-grow: 1;
   font-size: 2.5rem;
   width: 100%;
   border: 0;
-  -webkit-tap-highlight-color: transparent;
+  background-color: transparent;
 }
 form input[type=text]:focus {
   outline: 0;
+  background-color: transparent;
 }
 .input-container {
   flex-grow: 1;
@@ -80,8 +90,8 @@ form button:hover {
 .color-display, .color-display-history {
   grid-column-start: 2;
   padding: 1rem;
-  background: white;
   border-radius: 3px;
+  background: transparent;
 }
 .color-display-history code {
   display: block;
