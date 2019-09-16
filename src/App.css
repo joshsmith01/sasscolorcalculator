@@ -4,6 +4,13 @@ body {
   color: rgba(0, 0, 0, 0.87);
   font-family: "Roboto", "Helvetica", "Arial", sans-serif;
 }
+#root {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
 .app-intro {
   grid-column-start: 2;
 }
@@ -14,6 +21,11 @@ body {
   grid-gap: 30px;
   justify-content: center;
   text-align: center;
+}
+@media screen and (max-width: 699px) {
+  .App {
+    grid-template-columns: auto auto auto;
+  }
 }
 form {
   grid-column-start: 2;

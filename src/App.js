@@ -189,6 +189,7 @@ const App = () => {
     colorEnd: []
   });
   const [colorFunctionArray, setColorFunctionArray] = useState([]);
+  const [isValidationError, setIsValidationError] = useState(false);
 
   const handleChange = (event) => {
     event.persist();
@@ -196,10 +197,14 @@ const App = () => {
       ...previousValues,
       [event.target.name]: cleanColorString(convertColorStringToHex(event.target.value)),
     }));
+    setIsValidationError(false)
   };
 
   const verifyHexColor = (colorString) => {
     let pattern = new RegExp("^#([a-fA-F0-9]){3}$|[a-fA-F0-9]{6}$");
+    if(!pattern.test(colorString)) {
+      setIsValidationError(true)
+    }
     return pattern.test(colorString);
   };
 
@@ -273,6 +278,7 @@ const App = () => {
   }
 
   return (
+      <>
       <div className="App">
         <div className="app-intro">
           <h1>Sass Color Calculator</h1>
@@ -303,7 +309,12 @@ const App = () => {
           </div>
           <button type="submit" value="Sassify">Sassify</button>
         </form>
-
+        {isValidationError && (
+            <div className="color-display-history">
+              <p>There is a problem with the color input string.</p>
+              <p>Check to make sure the spelling is correct or that the hex code is <code>#ecf</code> or <code>#eeccff</code> or <code>ecf</code> or <code>eeccff</code> or <code>green</code></p>
+            </div>
+        )}
 
         {colorFunctionArray.reverse().map((item, index)  => (
           <div className="color-display-history" key={index}>
@@ -323,6 +334,11 @@ const App = () => {
           </div>
         ))}
       </div>
+
+        <footer>
+          Built by Josh at <a href="https://www.efficiencyofmovement.com">Efficiency of Movement</a>
+        </footer>
+        </>
   );
 };
 
