@@ -198,9 +198,15 @@ const App = () => {
     }));
   };
 
+  const verifyHexColor = (colorString) => {
+    let pattern = new RegExp("^#([a-fA-F0-9]){3}$|[a-fA-F0-9]{6}$");
+    return pattern.test(colorString);
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
-    try {
+    if(verifyHexColor(`#${colors.colorStart}`) && verifyHexColor(`#${colors.colorEnd}`)) {
+      try {
       let colorStartHsl = Color(`#${colors.colorStart}`).hsl().array();
       let colorEndHsl = Color(`#${colors.colorEnd}`).hsl().array();
       setColorsHsl(colorsHsl => ({
@@ -210,10 +216,13 @@ const App = () => {
         colorStartString: colors.colorStart,
         colorEndString: colors.colorEnd,
       }));
-    } catch (e) {
-      console.error('There is an error: ', e)
+      } catch (e) {
+        console.error('There was a problem: ', e);
+      }
+    } else {
+      console.warn('Validate your color string input. Your string should be a HEX value; 3 or 6 characters. #eee or' +
+          ' #e1e1e1');
     }
-
   };
 
   useEffect(() => {
@@ -260,13 +269,9 @@ const App = () => {
         colorStartString: colors.colorStart,
         colorEndString: colors.colorEnd,
       }}]);
-
-
     return (colorString);
   }
 
-
-  //
   return (
       <div className="App">
         <div className="app-intro">
@@ -317,11 +322,8 @@ const App = () => {
             </div>
           </div>
         ))}
-
-
-
       </div>
   );
-}
+};
 
 export default App;
