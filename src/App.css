@@ -77,6 +77,7 @@ form button {
   border-radius: 4px;
   letter-spacing: 0.02857em;
   text-transform: uppercase;
+  margin-top: 0.5rem;
 }
 form button:focus {
   outline: red auto 5px;
