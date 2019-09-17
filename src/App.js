@@ -1,17 +1,17 @@
 import React, {useEffect, useState} from 'react';
-import './App.css';
+import './App.scss';
 import Color from 'color';
 import Particles from 'react-particles-js';
-
+import {Spring} from 'react-spring/renderprops'
 
 
 const cleanColorString = (colorString) => {
   // strip any leading #
   if (colorString.charAt(0) === '#') { // remove # if any
-    colorString = colorString.substr(1,6);
+    colorString = colorString.substr(1, 6);
   }
 
-  colorString = colorString.replace(/ /g,'');
+  colorString = colorString.replace(/ /g, '');
   colorString = colorString.toLowerCase();
 
   return colorString
@@ -80,8 +80,8 @@ const convertColorStringToHex = (colorString) => {
     greenyellow: 'adff2f',
     honeydew: 'f0fff0',
     hotpink: 'ff69b4',
-    indianred : 'cd5c5c',
-    indigo : '4b0082',
+    indianred: 'cd5c5c',
+    indigo: '4b0082',
     ivory: 'fffff0',
     khaki: 'f0e68c',
     lavender: 'e6e6fa',
@@ -179,7 +179,6 @@ const convertColorStringToHex = (colorString) => {
 };
 
 
-
 const App = () => {
   const [colors, setColors] = useState({
     colorStart: 'eeeeee',
@@ -203,7 +202,7 @@ const App = () => {
 
   const verifyHexColor = (colorString) => {
     let pattern = new RegExp("^#([a-fA-F0-9]){3}$|[a-fA-F0-9]{6}$");
-    if(!pattern.test(colorString)) {
+    if (!pattern.test(colorString)) {
       setIsValidationError(true)
     }
     return pattern.test(colorString);
@@ -211,17 +210,17 @@ const App = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    if(verifyHexColor(`#${colors.colorStart}`) && verifyHexColor(`#${colors.colorEnd}`)) {
+    if (verifyHexColor(`#${colors.colorStart}`) && verifyHexColor(`#${colors.colorEnd}`)) {
       try {
-      let colorStartHsl = Color(`#${colors.colorStart}`).hsl().array();
-      let colorEndHsl = Color(`#${colors.colorEnd}`).hsl().array();
-      setColorsHsl(colorsHsl => ({
-        ...colorsHsl,
-        colorStart: colorStartHsl,
-        colorEnd: colorEndHsl,
-        colorStartString: colors.colorStart,
-        colorEndString: colors.colorEnd,
-      }));
+        let colorStartHsl = Color(`#${colors.colorStart}`).hsl().array();
+        let colorEndHsl = Color(`#${colors.colorEnd}`).hsl().array();
+        setColorsHsl(colorsHsl => ({
+          ...colorsHsl,
+          colorStart: colorStartHsl,
+          colorEnd: colorEndHsl,
+          colorStartString: colors.colorStart,
+          colorEndString: colors.colorEnd,
+        }));
       } catch (e) {
         console.error('There was a problem: ', e);
       }
@@ -237,8 +236,9 @@ const App = () => {
   }, [colorsHsl]);
 
   var differences = [];
-  function  getColorDifferences(start, end) {
-    if(isNaN(end[0])) {
+
+  function getColorDifferences(start, end) {
+    if (isNaN(end[0])) {
       return
     }
     for (let i = 0; i < 3; i++) {
@@ -248,7 +248,7 @@ const App = () => {
   }
 
   function getColorFunction(colorString, hslDifferences) {
-    if(isNaN(hslDifferences[0])) {
+    if (isNaN(hslDifferences[0])) {
       return
     }
     // H
@@ -271,186 +271,211 @@ const App = () => {
     } else if (hslDifferences[2] > 0) { // if second color is darker
       colorString = "darken( " + colorString + ", " + hslDifferences[2] + " )";
     }
-    setColorFunctionArray([...colorFunctionArray, {colorFunction: colorString,colors: {
+    setColorFunctionArray([...colorFunctionArray, {
+      colorFunction: colorString, colors: {
         colorStartString: colors.colorStart,
         colorEndString: colors.colorEnd,
-      }}]);
+      }
+    }]);
     return (colorString);
   }
 
   return (
       <>
         <Particles className="particles"
-            params={{
-              "particles": {
-                "number": {
-                  "value": 3,
-                  "density": {
-                    "enable": true,
-                    "value_area": 1000
-                  }
-                },
-                "color": {
-                  "value": "#fcfcfc"
-                },
-                "shape": {
-                  "type": "polygon",
-                  "stroke": {
-                    "width": 3,
-                    "color": "#f5f5f5"
-                  },
-                  "polygon": {
-                    "nb_sides": 7
-                  },
-                  "image": {
-                    "src": "img/github.svg",
-                    "width": 100,
-                    "height": 100
-                  }
-                },
-                "opacity": {
-                  "value": 0.5,
-                  "random": false,
-                  "anim": {
-                    "enable": false,
-                    "speed": 1,
-                    "opacity_min": 0.1,
-                    "sync": false
-                  }
-                },
-                "size": {
-                  "value": 320.6824121731046,
-                  "random": true,
-                  "anim": {
-                    "enable": false,
-                    "speed": 19.18081918081918,
-                    "size_min": 0.1,
-                    "sync": false
-                  }
-                },
-                "line_linked": {
-                  "enable": false,
-                  "distance": 150,
-                  "color": "#757272",
-                  "opacity": 0.4,
-                  "width": 1
-                },
-                "move": {
-                  "enable": true,
-                  "speed": 5,
-                  "direction": "none",
-                  "random": false,
-                  "straight": false,
-                  "out_mode": "out",
-                  "bounce": false,
-                  "attract": {
-                    "enable": true,
-                    "rotateX": 600,
-                    "rotateY": 1200
-                  }
-                }
-              },
-              "interactivity": {
-                "detect_on": "window",
-                "events": {
-                  "onhover": {
-                    "enable": false,
-                    "mode": "repulse"
-                  },
-                  "onclick": {
-                    "enable": false,
-                    "mode": "push"
-                  },
-                  "resize": true
-                },
-                "modes": {
-                  "grab": {
-                    "distance": 400,
-                    "line_linked": {
-                      "opacity": 1
-                    }
-                  },
-                  "bubble": {
-                    "distance": 400,
-                    "size": 40,
-                    "duration": 2,
-                    "opacity": 8,
-                    "speed": 3
-                  },
-                  "repulse": {
-                    "distance": 200,
-                    "duration": 0.4
-                  },
-                  "push": {
-                    "particles_nb": 4
-                  },
-                  "remove": {
-                    "particles_nb": 2
-                  }
-                }
-              },
-              "retina_detect": true
-            }} />
-      <div className="App">
-        <div className="app-intro">
-          <h1>Sass Color Calculator</h1>
-          <p>Determine the sass function that derives one color from another</p>
-        </div>
-        <div className="color-display">
-          <div className="color-card-container">
-          <div className="color-card color-card-start" style={{background: `#${colors.colorStart}`}}>
-             <span className="card-title">
+                   params={{
+                     "particles": {
+                       "number": {
+                         "value": 3,
+                         "density": {
+                           "enable": true,
+                           "value_area": 1000
+                         }
+                       },
+                       "color": {
+                         "value": "#fcfcfc"
+                       },
+                       "shape": {
+                         "type": "polygon",
+                         "stroke": {
+                           "width": 3,
+                           "color": "#f5f5f5"
+                         },
+                         "polygon": {
+                           "nb_sides": 7
+                         },
+                         "image": {
+                           "src": "img/github.svg",
+                           "width": 100,
+                           "height": 100
+                         }
+                       },
+                       "opacity": {
+                         "value": 0.5,
+                         "random": false,
+                         "anim": {
+                           "enable": false,
+                           "speed": 1,
+                           "opacity_min": 0.1,
+                           "sync": false
+                         }
+                       },
+                       "size": {
+                         "value": 320.6824121731046,
+                         "random": true,
+                         "anim": {
+                           "enable": false,
+                           "speed": 19.18081918081918,
+                           "size_min": 0.1,
+                           "sync": false
+                         }
+                       },
+                       "line_linked": {
+                         "enable": false,
+                         "distance": 150,
+                         "color": "#757272",
+                         "opacity": 0.4,
+                         "width": 1
+                       },
+                       "move": {
+                         "enable": true,
+                         "speed": 5,
+                         "direction": "none",
+                         "random": false,
+                         "straight": false,
+                         "out_mode": "out",
+                         "bounce": false,
+                         "attract": {
+                           "enable": true,
+                           "rotateX": 600,
+                           "rotateY": 1200
+                         }
+                       }
+                     },
+                     "interactivity": {
+                       "detect_on": "window",
+                       "events": {
+                         "onhover": {
+                           "enable": false,
+                           "mode": "repulse"
+                         },
+                         "onclick": {
+                           "enable": false,
+                           "mode": "push"
+                         },
+                         "resize": true
+                       },
+                       "modes": {
+                         "grab": {
+                           "distance": 400,
+                           "line_linked": {
+                             "opacity": 1
+                           }
+                         },
+                         "bubble": {
+                           "distance": 400,
+                           "size": 40,
+                           "duration": 2,
+                           "opacity": 8,
+                           "speed": 3
+                         },
+                         "repulse": {
+                           "distance": 200,
+                           "duration": 0.4
+                         },
+                         "push": {
+                           "particles_nb": 4
+                         },
+                         "remove": {
+                           "particles_nb": 2
+                         }
+                       }
+                     },
+                     "retina_detect": true
+                   }}/>
+        <div className="App">
+          <div className="app-intro">
+            <h1>Sass Color Calculator</h1>
+            <p>Determine the sass function that derives one color from another</p>
+          </div>
+          <div className="color-display">
+            <div className="color-card-container">
+              <div className="color-card color-card-start" style={{background: `#${colors.colorStart}`}}>
+                {colors.colorStart &&
+                <span className="card-title">
                <code>{`#${colors.colorStart}`}</code>
              </span>
-          </div>
-          <div className="color-card color-card-end" style={{background: `#${colors.colorEnd}`}}>
-            <span className="card-title">
+                }
+              </div>
+              <div className="color-card color-card-end" style={{background: `#${colors.colorEnd}`}}>
+                {colors.colorEnd &&
+                <span className="card-title">
               <code>{`#${colors.colorEnd}`}</code>
             </span>
-          </div>
-          </div>
-        </div>
-        <form onSubmit={handleSubmit}>
-          <div className="input-container">
-          <label htmlFor="color-start">Start</label>
-          <input id="color-start" type="text" name="colorStart" placeholder="#dad or ddaadd" onChange={handleChange}/>
-          </div>
-          <div className="input-container">
-          <label htmlFor="color-end">End</label>
-          <input id="color-end" type="text" name="colorEnd" placeholder="080 or green" onChange={handleChange}/>
-          </div>
-          <button type="submit" value="Sassify">Sassify</button>
-        </form>
-        {isValidationError && (
-            <div className="color-display-history">
-              <p>There is a problem with the color input string.</p>
-              <p>Check to make sure the spelling is correct or that the hex code is <code>#ecf</code> or <code>#eeccff</code> or <code>ecf</code> or <code>eeccff</code> or <code>green</code></p>
+                }
+              </div>
             </div>
-        )}
+          </div>
+          <form onSubmit={handleSubmit}>
+            <div className="input-container">
+              <label htmlFor="color-start">Start</label>
+              <input id="color-start" type="text" name="colorStart" placeholder="#dad or ddaadd"
+                     onChange={handleChange}/>
+            </div>
+            <div className="input-container">
+              <label htmlFor="color-end">End</label>
+              <input id="color-end" type="text" name="colorEnd" placeholder="080 or green" onChange={handleChange}/>
+            </div>
+            <button type="submit" value="Sassify">Sassify</button>
+          </form>
+          {isValidationError && (
+              <Spring
+                  from={{opacity: 0}}
+                  to={{opacity: 1}}
+              >
+                {props =>
+                    <div className="color-display-history">
+                      <p>There is a problem with the color input string.</p>
+                      <p>Check to make sure the spelling is correct or that the hex code
+                        is <code>#ecf</code> or <code>#eeccff</code> or <code>ecf</code> or <code>eeccff</code> or <code>green</code>
+                      </p>
+                    </div>
+                }
+              </Spring>
+          )}
 
-        {colorFunctionArray.reverse().map((item, index)  => (
-          <div className="color-display-history" key={index}>
-            <div className="color-card-container">
-            <code>{item.colorFunction}</code>
-            <div className="color-card color-card-start" style={{background: `#${item.colors.colorStartString}`}}>
+          {colorFunctionArray.reverse().map((item, index) => (
+              <Spring
+                  from={{opacity: 0}}
+                  to={{opacity: 1}}
+              >
+                {props =>
+                    <div style={props} className="color-display-history" key={index}>
+                      <div className="color-card-container">
+                        <code>{item.colorFunction}</code>
+                        <div className="color-card color-card-start"
+                             style={{background: `#${item.colors.colorStartString}`}}>
               <span className="card-title">
                 Start Color <code>{`#${item.colors.colorStartString}`}</code>
               </span>
-            </div>
-            <div className="color-card color-card-end" style={{background: `#${item.colors.colorEndString}`}}>
+                        </div>
+                        <div className="color-card color-card-end"
+                             style={{background: `#${item.colors.colorEndString}`}}>
                 <span className="card-title">
                   End Color  <code>{`#${item.colors.colorEndString}`}</code>
                 </span>
-            </div>
-            </div>
-          </div>
-        ))}
-      </div>
+                        </div>
+                      </div>
+                    </div>
+                }
+              </Spring>
+          ))}
+        </div>
 
         <footer>
           Built by Josh at <a href="https://www.efficiencyofmovement.com">Efficiency of Movement</a>
         </footer>
-        </>
+      </>
   );
 };
 
