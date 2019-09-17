@@ -181,7 +181,7 @@ const convertColorStringToHex = (colorString) => {
 
 const App = () => {
   const [colors, setColors] = useState({
-    colorStart: 'eeeeee',
+    colorStart: 'eeeeee' ,
     colorEnd: 'ff0000'
   });
   const [colorsHsl, setColorsHsl] = useState({
