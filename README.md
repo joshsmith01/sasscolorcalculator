@@ -1,7 +1,16 @@
+# Sass Color Calculator
+
+This app is used to produce the sass / scss color function from one color to another. 
+
+# Why would I want to change colors? 
+
+Well, if you use Sass / Scss, you know that you can use variables and the sass logic to manipulate those colors. So say, a designer hands you a design and all there is a distinct color palette to work from. The palette may contain only 5 base colors. Some times those colors are used to produce derivative colors for effects like hover and active states. Wouldn't it be nice to produce a function for the derivative color and then if you ever change the primary color all the derivatives will be changed too because they are produced from a Sass function that you calculated with Sass Color Calculator
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/966f718c-dbce-4253-894b-980e3e16980e/deploy-status)](https://app.netlify.com/sites/peaceful-murdock-cbed5f/deploys)
 ## Available Scripts
 
 In the project directory, you can run:
