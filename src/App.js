@@ -529,6 +529,20 @@ const App = () => {
         <a href="https://www.efficiencyofmovement.com">
           Efficiency of Movement
         </a>
+        <p>
+          <a href="https://app.netlify.com/sites/peaceful-murdock-cbed5f/deploys">
+            <img
+              src="https://api.netlify.com/api/v1/badges/966f718c-dbce-4253-894b-980e3e16980e/deploy-status"
+              alt="Netlify Deploy status for Sass Color Calculator"
+            />
+          </a>
+          <a href="https://github.com/prettier/prettier">
+            <img
+              src="https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square"
+              alt="Code Style by Prettier"
+            />
+          </a>
+        </p>
       </footer>
     </>
   )

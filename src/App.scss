@@ -191,3 +191,10 @@ code {
 .App-link {
     color: #61DAFB;
 }
+
+footer {
+    p {
+        display: flex;
+        justify-content: space-around;
+    }
+}
