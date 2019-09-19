@@ -142,6 +142,7 @@ code {
     display: inline-flex;
     justify-content: center;
     padding: .5rem;
+    text-transform: lowercase;
 }
 
 .color-card {
@@ -157,6 +158,7 @@ code {
     border-radius: 5px;
     box-shadow: #1E1E1E 2px 2px 8px;
     padding: 1rem;
+    text-transform: capitalize;
 }
 
 .color-card-start {
@@ -193,8 +195,20 @@ code {
 }
 
 footer {
+    display: grid;
+    grid-auto-rows: auto;
+    grid-gap: 30px;
+    grid-template-columns: 200px 700px 200px;
+    justify-content: center;
+    text-align: center;
     p {
-        display: flex;
+        grid-column-start: 2;
         justify-content: space-around;
+    }
+    .footer-links {
+        a {
+        margin: 0 .5rem;
+
+        }
     }
 }

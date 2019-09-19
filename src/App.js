@@ -5,7 +5,8 @@ import Particles from 'react-particles-js'
 import { Spring } from 'react-spring/renderprops'
 import simpleColors from './util/simpleColors'
 import particlesConfig from './util/particlesConfig'
-import CardTitle from './components/CardTitle'
+import ColorCard from './components/ColorCard'
+import { Ocotcat } from './util/ocotcat'
 
 const cleanColorString = colorString => {
   // strip any leading #
@@ -168,26 +169,16 @@ const App = () => {
         </div>
         <div className="color-display">
           <div className="color-card-container">
-            <div
-              className="color-card color-card-start"
-              style={{ background: `#${colors.colorStart}` }}
-            >
-              {colors.colorStart && (
-                <span className="card-title">
-                  <code>{`#${colors.colorStart}`}</code>
-                </span>
-              )}
-            </div>
-            <div
-              className="color-card color-card-end"
-              style={{ background: `#${colors.colorEnd}` }}
-            >
-              {colors.colorEnd && (
-                <span className="card-title">
-                  <code>{`#${colors.colorEnd}`}</code>
-                </span>
-              )}
-            </div>
+            <ColorCard
+              colorString={colors.colorStart}
+              position="start"
+              isHistorical={false}
+            />
+            <ColorCard
+              colorString={colors.colorEnd}
+              position="end"
+              isHistorical={false}
+            />
           </div>
         </div>
         <form onSubmit={handleSubmit}>
@@ -240,18 +231,16 @@ const App = () => {
               <div style={props} className="color-display-history">
                 <div className="color-card-container">
                   <code>{item.colorFunction}</code>
-                  <div
-                    className="color-card color-card-start"
-                    style={{ background: `#${item.colors.colorStartString}` }}
-                  >
-                    <CardTitle colorString={item.colors.colorStartString} />
-                  </div>
-                  <div
-                    className="color-card color-card-end"
-                    style={{ background: `#${item.colors.colorEndString}` }}
-                  >
-                    <CardTitle colorString={item.colors.colorEndString} />
-                  </div>
+                  <ColorCard
+                    colorString={item.colors.colorStartString}
+                    position="start"
+                    isHistorical
+                  />
+                  <ColorCard
+                    colorString={item.colors.colorEndString}
+                    position="end"
+                    isHistorical
+                  />
                 </div>
               </div>
             )}
@@ -260,11 +249,13 @@ const App = () => {
       </div>
 
       <footer>
-        Built by Josh at{' '}
-        <a href="https://www.efficiencyofmovement.com">
-          Efficiency of Movement
-        </a>
         <p>
+          Built by Josh at{' '}
+          <a href="https://www.efficiencyofmovement.com">
+            Efficiency of Movement
+          </a>
+        </p>
+        <p className="footer-links">
           <a href="https://app.netlify.com/sites/peaceful-murdock-cbed5f/deploys">
             <img
               src="https://api.netlify.com/api/v1/badges/966f718c-dbce-4253-894b-980e3e16980e/deploy-status"
@@ -277,6 +268,7 @@ const App = () => {
               alt="Code Style by Prettier"
             />
           </a>
+          <Ocotcat />
         </p>
       </footer>
     </>
